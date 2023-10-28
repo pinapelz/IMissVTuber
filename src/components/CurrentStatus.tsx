@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Carousel } from "react-responsive-carousel";
-import "react-responsive-carousel/lib/styles/carousel.min.css"; // Import carousel styles
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 interface StreamData {
   status: string;
@@ -8,6 +8,9 @@ interface StreamData {
   channel: {
     name: string;
   };
+  title: string;
+  start_actual: string;
+  id: string;
 }
 
 const CurrentStatus: React.FC = () => {
@@ -26,7 +29,7 @@ const CurrentStatus: React.FC = () => {
   const [elapsedTime, setElapsedTime] = useState<number>(0);
 
   useEffect(() => {
-    fetch("http://imisserinya.pinapelz.moe/api/live")
+    fetch("https://imisserinya.vercel.app/api/live")
       .then((response) => {
         if (!response.ok) {
           throw new Error("Network response was not ok");
@@ -65,7 +68,7 @@ const CurrentStatus: React.FC = () => {
   }, []);
 
   if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error.message}</p>;
+  if (error) return <p>An error occured while fetching data</p>;
   if (!data) return <p>No data received</p>;
 
   const formatElapsedTime = (seconds: number) => {
