@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import CurrentStatus from "../components/CurrentStatus";
 import Footer from "../components/Footer";
 import ProgressBar from "../components/ProgressBar";
+import IMissButton from '../components/IMissButton';
 import '../styles/LandingPage.css';  
 
 interface StreamData {
@@ -21,8 +22,10 @@ function LandingPage() {
     const [loading, setLoading] = useState(true);
     const [isRefetching, setIsRefetching] = useState(false);
     const [error, setError] = useState<unknown>(null);
-  
+    const [autoRefresh, setAutoRefresh] = useState(true);
+
     const fetchData = (initialFetch: boolean = false) => {
+      if (!autoRefresh && !initialFetch) return;
       if (initialFetch) {
         setLoading(true);
       }
@@ -56,6 +59,11 @@ function LandingPage() {
     return (
       <div className="container">
         <CurrentStatus data={data} loading={loading || isRefetching} error={error} />
+        <label>
+          Auto-refresh:
+          <input type="checkbox" checked={autoRefresh} onChange={() => setAutoRefresh(!autoRefresh)} /> {/* Checkbox to toggle auto-refresh */}
+        </label>
+        <IMissButton syncInterval={12000} />
         <ProgressBar onComplete={handleProgressComplete} />
         <Footer />
       </div>
