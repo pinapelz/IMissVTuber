@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import CurrentStatus from "../components/CurrentStatus";
-import Footer from "../components/Footer";
 import ProgressBar from "../components/ProgressBar";
 import IMissButton from '../components/IMissButton';
 import '../styles/LandingPage.css';  
@@ -65,7 +64,6 @@ function LandingPage() {
         </label>
         <IMissButton syncInterval={12000} />
         <ProgressBar onComplete={handleProgressComplete} />
-        <Footer />
       </div>
     );
   }

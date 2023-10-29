@@ -25,7 +25,7 @@ const ProgressBar: React.FC<Props> = ({ onComplete }) => {
   return (
     <div
       style={{
-        marginTop: "150px",
+        marginTop: "50px",
         marginBottom: "50px",
         height: "10px", 
         width: "90%",  
@@ -57,6 +57,8 @@ const ProgressBar: React.FC<Props> = ({ onComplete }) => {
           position: "absolute",
           left: `${progressWidth}%`,
           transform: "translateX(-50%) translateY(-100%) scaleX(-1)",
+          width: "50px",
+          height: "50px",
         }} 
       />
     </div>
