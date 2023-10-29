@@ -75,6 +75,8 @@ def sync_counter():
         response = requests.put(url, headers=header)
     else:
         counter = response_data["result"]
+        if client_click_count == 0:
+            return jsonify({'counter': counter})
         counter = int(counter) + client_click_count
         url = os.environ.get("KV_REST_API_URL")+"/set/imiss_count/"+str(counter)
         response = requests.put(url, headers=header)
