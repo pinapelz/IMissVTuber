@@ -17,7 +17,7 @@ const IMissButton: React.FC<IMissButtonProps> = ({ syncInterval }) => {
 
   const syncCounter = useCallback(() => {
     console.log('syncCounter called', { newClicks, syncing });
-    if (!syncing) {
+    if (!syncing && newClicks > 0) {
       setSyncing(true);
       axios.post('https://imisserinya.moekyun.me/api/counter/sync', { counter: `${newClicks}` })
         .then((response) => {
