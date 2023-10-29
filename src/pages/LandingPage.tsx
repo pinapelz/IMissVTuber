@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import CurrentStatus from "../components/CurrentStatus";
 import Footer from "../components/Footer";
 import ProgressBar from "../components/ProgressBar";
