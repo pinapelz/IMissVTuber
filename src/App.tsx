@@ -12,7 +12,7 @@ function App() {
       </BrowserRouter>
       <footer>
         <a href="https://github.com/pinapelz/imisssomeone">Source Code</a>
-        <p>Not affiliated with Phase Connect or Erina Makina</p>
+        <p style={{ fontSize: '1rem' }}>Not affiliated with Phase Connect or Erina Makina</p>
       </footer>
     </>
   );

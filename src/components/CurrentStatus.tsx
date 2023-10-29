@@ -20,8 +20,19 @@ interface CurrentStatusProps {
   error: unknown;
 }
 
-const CurrentStatus: React.FC<CurrentStatusProps> = ({ data, loading, error }) => {
-  const pastImages = ["https://files.catbox.moe/mqijtw.webp"];
+const CurrentStatus: React.FC<CurrentStatusProps> = ({
+  data,
+  loading,
+  error,
+}) => {
+  const [selectedItem, setSelectedItem] = useState(0);
+  const pastImages = [
+    "https://files.pinapelz.com/mqijtw.webp",
+    "https://files.pinapelz.com/ericry.webp",
+    "https://files.pinapelz.com/erina-makina-phase-connect.gif",
+    "https://files.pinapelz.com/1156339143861866527.webp",
+    "https://files.pinapelz.com/1077804029737975879.webp",
+  ];
   const imageStyle = {
     height: "300px",
     width: "auto",
@@ -36,7 +47,9 @@ const CurrentStatus: React.FC<CurrentStatusProps> = ({ data, loading, error }) =
       setElapsedTime(Math.floor((now.getTime() - endActual.getTime()) / 1000));
     } else if (data && data.status === "live") {
       const startActual = new Date(data.start_actual);
-      setElapsedTime(Math.floor((now.getTime() - startActual.getTime()) / 1000));
+      setElapsedTime(
+        Math.floor((now.getTime() - startActual.getTime()) / 1000)
+      );
     }
   }, [data]);
 
@@ -65,11 +78,18 @@ const CurrentStatus: React.FC<CurrentStatusProps> = ({ data, loading, error }) =
         <>
           <h1>I Miss Erinya</h1>
           <Carousel
+            selectedItem={selectedItem}
             showThumbs={false}
             showStatus={false}
             showArrows={false}
+            showIndicators={false}
             autoPlay={true}
             infiniteLoop={true}
+            onClickItem={() => {
+              setSelectedItem(
+                (prevSelectedItem) => (prevSelectedItem + 1) % pastImages.length
+              );
+            }}
           >
             {pastImages.map((url, index) => (
               <div key={index}>
@@ -77,8 +97,12 @@ const CurrentStatus: React.FC<CurrentStatusProps> = ({ data, loading, error }) =
               </div>
             ))}
           </Carousel>
-          <p className="status-text">{data.channel.english_name} is not streaming. uuuuuuuu!!!</p>
-          <p className="status-text">{formatElapsedTime(elapsedTime)} without a KonErinya</p>
+          <p className="status-text">
+            {data.channel.english_name} is not streaming. uuuuuuuu!!!
+          </p>
+          <p className="status-text">
+            {formatElapsedTime(elapsedTime)} without a KonErinya
+          </p>
         </>
       ) : (
         data.status === "live" && (
@@ -89,8 +113,10 @@ const CurrentStatus: React.FC<CurrentStatusProps> = ({ data, loading, error }) =
               height="315"
               src={`https://www.youtube.com/embed/${data.id}`}
             ></iframe>
-            <p className="status-text" >{data.title}</p>
-            <p className="status-text" >Streamed for: {formatElapsedTime(elapsedTime)}</p>
+            <p className="status-text">{data.title}</p>
+            <p className="status-text">
+              Streamed for: {formatElapsedTime(elapsedTime)}
+            </p>
           </>
         )
       )}
