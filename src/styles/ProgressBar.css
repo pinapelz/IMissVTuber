@@ -1,0 +1,12 @@
+.progress-cursor {
+    height: 100px;
+    width: 100px;
+  }
+  
+  @media (max-width: 600px) {
+    .progress-cursor {
+      height: 60px;
+      width: 60px;
+    }
+  }
+  

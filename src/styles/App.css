@@ -2,13 +2,9 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  overflow-x: hidden;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
 
 .card {
   padding: 2em;
@@ -27,4 +23,14 @@ p {
   color: white;
   text-align: center;
   padding: 1rem;
+}
+
+.status-text {
+  font-size: 1.5rem;
+}
+
+@media screen and (max-width: 768px) {
+  .status-text {
+      font-size: 1em;
+  }
 }

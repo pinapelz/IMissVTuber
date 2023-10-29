@@ -7,57 +7,38 @@ interface StreamData {
   end_actual: string;
   channel: {
     name: string;
+    english_name: string;
   };
   title: string;
   start_actual: string;
   id: string;
 }
 
-const CurrentStatus: React.FC = () => {
-  const pastImages = [
-    "https://files.catbox.moe/mqijtw.webp",
-  ];
+interface CurrentStatusProps {
+  data: StreamData | null;
+  loading: boolean;
+  error: unknown;
+}
 
+const CurrentStatus: React.FC<CurrentStatusProps> = ({ data, loading, error }) => {
+  const pastImages = ["https://files.catbox.moe/mqijtw.webp"];
   const imageStyle = {
     height: "300px",
     width: "auto",
   };
 
-  const [data, setData] = useState<StreamData | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
   const [elapsedTime, setElapsedTime] = useState<number>(0);
 
   useEffect(() => {
-    fetch("https://imisserinya.vercel.app/api/live")
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return response.json();
-      })
-      .then((result: StreamData) => {
-        setData(result);
-        setLoading(false);
-        const now = new Date();
-        if (result.status === "past") {
-          const endActual = new Date(result.end_actual);
-          setElapsedTime(
-            Math.floor((now.getTime() - endActual.getTime()) / 1000)
-          );
-        }
-        else if(result.status === "live"){
-            const startActual = new Date(result.start_actual);
-            setElapsedTime(
-                Math.floor((now.getTime() - startActual.getTime()) / 1000)
-              );
-        }
-      })
-      .catch((error) => {
-        setError(error);
-        setLoading(false);
-      });
-  }, []);
+    const now = new Date();
+    if (data && data.status === "past") {
+      const endActual = new Date(data.end_actual);
+      setElapsedTime(Math.floor((now.getTime() - endActual.getTime()) / 1000));
+    } else if (data && data.status === "live") {
+      const startActual = new Date(data.start_actual);
+      setElapsedTime(Math.floor((now.getTime() - startActual.getTime()) / 1000));
+    }
+  }, [data]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -68,7 +49,7 @@ const CurrentStatus: React.FC = () => {
   }, []);
 
   if (loading) return <p>Loading...</p>;
-  if (error) return <p>An error occured while fetching data</p>;
+  if (error) return <p>An error occurred while fetching data</p>;
   if (!data) return <p>No data received</p>;
 
   const formatElapsedTime = (seconds: number) => {
@@ -82,7 +63,8 @@ const CurrentStatus: React.FC = () => {
     <div>
       {data.status === "past" ? (
         <>
-        <Carousel
+          <h1>I Miss Erinya</h1>
+          <Carousel
             showThumbs={false}
             showStatus={false}
             showArrows={false}
@@ -95,22 +77,22 @@ const CurrentStatus: React.FC = () => {
               </div>
             ))}
           </Carousel>
-          <p>
-            Erinya is not streaming. uuuuuuuu!!!
-            <br />
-            {formatElapsedTime(elapsedTime)} without Erinya :(
-          </p>
+          <p className="status-text">{data.channel.english_name} is not streaming. uuuuuuuu!!!</p>
+          <p className="status-text">{formatElapsedTime(elapsedTime)} without a KonErinya</p>
         </>
       ) : (
-        data.status === "live" && 
-        <>
-            <p>Erinya is live yipeee!</p>
-            <iframe width="600" height="315"
-            src={`https://www.youtube.com/embed/${data.id}`}>
-            </iframe> 
-            <p>{data.title}</p>
-            <p>Streamed for: {formatElapsedTime(elapsedTime)}</p>
-        </>
+        data.status === "live" && (
+          <>
+            <h1>{data.channel.english_name} is live! Yipee!</h1>
+            <iframe
+              width="600"
+              height="315"
+              src={`https://www.youtube.com/embed/${data.id}`}
+            ></iframe>
+            <p className="status-text" >{data.title}</p>
+            <p className="status-text" >Streamed for: {formatElapsedTime(elapsedTime)}</p>
+          </>
+        )
       )}
     </div>
   );

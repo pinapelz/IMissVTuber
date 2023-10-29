@@ -1,17 +1,16 @@
-import CurrentStatus from './components/CurrentStatus'
-import './App.css'
-import Footer from './components/Footer'
+import { Route, Routes, BrowserRouter } from "react-router-dom";
+import './styles/App.css'
+import LandingPage from './pages/LandingPage'
 
 function App() {
 
   return (
     <>
-      <h1>I miss Erinyaaaaa!!</h1>
-      <div>
-      <CurrentStatus/>
-      </div>
-      <Footer/>
-
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+      </Routes>
+    </BrowserRouter>
     </>
   )
 }
