@@ -82,10 +82,17 @@ def sync_counter():
         response = requests.put(url, headers=header)
     return jsonify({'counter': counter})
 
-
 @app.route('/api/upcoming', methods=['GET'])
+@cache.cached(timeout=1800)
 def upcoming():
-    return jsonify({'status': 'not supported'})
+    """
+    Get the upcoming streams of the channel
+    """
+    url = f"https://holodex.net/api/v2/live?channel_id={channel_id}&status=upcoming"
+    headers = {"X-APIKEY": api_key}
+    response = requests.get(url, headers=headers)
+    return jsonify(response.json())
+    
 
 if __name__ == '__main__':
     app.run(debug=True)
