@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import CurrentStatus from "../components/CurrentStatus";
 import ProgressBar from "../components/ProgressBar";
-import IMissButton from '../components/IMissButton';
 import '../styles/LandingPage.css';  
 
 interface StreamData {
@@ -58,12 +57,11 @@ function LandingPage() {
     return (
       <div className="container">
         <CurrentStatus data={data} loading={loading || isRefetching} error={error} />
+        {autoRefresh && <ProgressBar onComplete={handleProgressComplete} />}
         <label>
-          Auto-refresh:
+          Auto-refresh Live Status:
           <input type="checkbox" checked={autoRefresh} onChange={() => setAutoRefresh(!autoRefresh)} /> {/* Checkbox to toggle auto-refresh */}
         </label>
-        <IMissButton syncInterval={12000} />
-        <ProgressBar onComplete={handleProgressComplete} />
       </div>
     );
   }

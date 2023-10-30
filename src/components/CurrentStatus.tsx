@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+import IMissButton from "./IMissButton";
 
 interface StreamData {
   status: string;
@@ -71,6 +72,7 @@ const CurrentStatus: React.FC<CurrentStatusProps> = ({
     const sec = seconds % 60;
     return `${hours}h ${minutes}m ${sec}s`;
   };
+  console.log(data.status);
 
   return (
     <div>
@@ -83,7 +85,6 @@ const CurrentStatus: React.FC<CurrentStatusProps> = ({
             showStatus={false}
             showArrows={false}
             showIndicators={false}
-            autoPlay={true}
             infiniteLoop={true}
             onClickItem={() => {
               setSelectedItem(
@@ -97,26 +98,28 @@ const CurrentStatus: React.FC<CurrentStatusProps> = ({
               </div>
             ))}
           </Carousel>
-          <p className="status-text">
-            {data.channel.english_name} is not streaming. uuuuuuuu!!!
+          <p className="title-text">
+            {data.channel.english_name} is not streaming
           </p>
           <p className="status-text">
             {formatElapsedTime(elapsedTime)} without a KonErinya
           </p>
+          <IMissButton syncInterval={12000} buttonText="Cry" buttonImgUrl="null" />
         </>
       ) : (
         data.status === "live" && (
           <>
-            <h1>{data.channel.english_name} is live! Yipee!</h1>
+            <h1>Erinya is here!</h1>
             <iframe
               width="600"
               height="315"
               src={`https://www.youtube.com/embed/${data.id}`}
             ></iframe>
-            <p className="status-text">{data.title}</p>
+            <p className="title-text">{data.title}</p>
             <p className="status-text">
               Streamed for: {formatElapsedTime(elapsedTime)}
             </p>
+            <IMissButton syncInterval={12000} buttonText="Yipee!" buttonImgUrl="null" />
           </>
         )
       )}

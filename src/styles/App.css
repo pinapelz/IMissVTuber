@@ -18,6 +18,11 @@ p {
   font-size: 1.5rem;
 }
 
+.title-text {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
 @media screen and (max-width: 768px) {
   .status-text {
       font-size: 1em;

@@ -3,9 +3,11 @@ import axios from 'axios';
 
 interface IMissButtonProps {
   syncInterval: number;
+  buttonText: string;
+  buttonImgUrl: string;
 }
 
-const IMissButton: React.FC<IMissButtonProps> = ({ syncInterval }) => {
+const IMissButton: React.FC<IMissButtonProps> = ({ syncInterval, buttonText, buttonImgUrl }) => {
   const [displayedCounter, setDisplayedCounter] = useState(0);
   const [newClicks, setNewClicks] = useState(0);
   const [syncing, setSyncing] = useState(false);
@@ -60,10 +62,10 @@ const IMissButton: React.FC<IMissButtonProps> = ({ syncInterval }) => {
 
   return (
     <div>
-      <p>Cried {displayedCounter} times</p>
     <button onClick={handleClick} style={{ padding: '20px', borderRadius: '5px', fontSize: '30px' }}>
-        Cry
+      <img src={buttonImgUrl} alt={buttonText} style={{ width: '20px', height: '20px' }}/>
     </button>
+    <p style={{ fontSize: '1.7em' , marginBottom:'15px'}}>{displayedCounter}</p>
     </div>
   );
 };
