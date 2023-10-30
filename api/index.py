@@ -30,7 +30,7 @@ def live():
     channel_live_data = {}
     live_videos = json.loads(response.text)
     if len(live_videos) != 0:
-        channel_live_data = response.json()
+        channel_live_data = live_videos[0]
     else:
         is_free_chat = True
         url = f"https://holodex.net/api/v2/videos?channel_id={channel_id}&status=past"
@@ -92,6 +92,10 @@ def upcoming():
     headers = {"X-APIKEY": api_key}
     response = requests.get(url, headers=headers)
     return jsonify(response.json())
+
+@app.route("/api/schedule", methods=['GET'])
+def get_schedule():
+    return f"https://img.youtube.com/vi/{free_chat}/maxresdefault.jpg"
     
 
 if __name__ == '__main__':
