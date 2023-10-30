@@ -4,6 +4,15 @@
     align-items: center;
     margin: 0 auto;
 }
+
+h1{
+    font-family: 'Quantico', sans-serif;
+}
+
+p.counter-text {
+    font-family: 'Quantico', sans-serif;
+}
+
 @keyframes shake {
     0% { transform: rotate(0deg); }
     25% { transform: rotate(-5deg); }

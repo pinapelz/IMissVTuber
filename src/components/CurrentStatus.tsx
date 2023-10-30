@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import IMissButton from "./IMissButton";
+import { useTrail, animated } from 'react-spring';
 
 interface StreamData {
   status: string;
@@ -20,6 +21,32 @@ interface CurrentStatusProps {
   loading: boolean;
   error: unknown;
 }
+
+const AnimatedText = ({ text }: { text: string }) => {
+  const words = text.split(' ');
+
+  const trail = useTrail(words.length, {
+    config: { mass: 5, tension: 1000, friction: 1000 },
+    opacity: 1,
+    x: 0,
+    from: { opacity: 0, x: 20 },
+    delay: 100,
+  });
+
+  return (
+    <>
+      {trail.map(({ x, ...rest }, index) => (
+        <animated.span key={words[index]} style={{ 
+          ...rest, 
+          transform: x.to((x) => `translate3d(0,${x}px,0)`),
+        }}>
+          {words[index]}{' '}
+        </animated.span>
+      ))}
+    </>
+  );
+};
+
 
 const CurrentStatus: React.FC<CurrentStatusProps> = ({
   data,
@@ -78,7 +105,7 @@ const CurrentStatus: React.FC<CurrentStatusProps> = ({
     <div>
       {data.status === "past" ? (
         <>
-          <h1>I Miss Erinya</h1>
+          <h1><AnimatedText text="I Miss Erinya"/></h1>
           <Carousel
             selectedItem={selectedItem}
             showThumbs={false}
@@ -104,7 +131,7 @@ const CurrentStatus: React.FC<CurrentStatusProps> = ({
             {data.channel.english_name} is not streaming
           </p>
           <p className="status-text">
-            {formatElapsedTime(elapsedTime)} without a KonErinya
+            {formatElapsedTime(elapsedTime)} without Erinya
           </p>
           <IMissButton syncInterval={12000} 
           buttonText="Cry" 
@@ -116,7 +143,7 @@ const CurrentStatus: React.FC<CurrentStatusProps> = ({
       ) : (
         data.status === "live" && (
           <>
-            <h1>Erinya is here!</h1>
+            <h1><AnimatedText text="Erinya is here!"/></h1>
             <iframe
               width="600"
               height="315"
