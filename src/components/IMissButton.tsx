@@ -5,18 +5,64 @@ interface IMissButtonProps {
   syncInterval: number;
   buttonText: string;
   buttonImgUrl: string;
+  imgWidth?: string;
+  imgHeight?: string;
 }
 
-const IMissButton: React.FC<IMissButtonProps> = ({ syncInterval, buttonText, buttonImgUrl }) => {
+interface IGif {
+  id: number;
+  top: number;
+  left: number;
+}
+
+const IMissButton: React.FC<IMissButtonProps> = ({ syncInterval, buttonText, buttonImgUrl, imgWidth='200px', imgHeight='200px' }) => {
   const [displayedCounter, setDisplayedCounter] = useState(0);
   const [newClicks, setNewClicks] = useState(0);
   const [syncing, setSyncing] = useState(false);
+  const [gifs, setGifs] = useState<IGif[]>([]);
+
+  const soundUrls = [
+    'https://files.pinapelz.com/koneri1.wav',
+    'https://files.pinapelz.com/koneri2.wav',
+    'https://files.pinapelz.com/koneri3.wav',
+    'https://files.pinapelz.com/koneri4.wav',
+  ];
+
+  const rareSoundUrls = [
+    'https://files.pinapelz.com/bust.wav',
+    'https://files.pinapelz.com/honey.wav',
+    'https://files.pinapelz.com/thirst.wav',
+    'https://files.pinapelz.com/kya.wav',
+  ];
 
   const handleClick = () => {
     setNewClicks((prevNewClicks) => prevNewClicks + 1);
     setDisplayedCounter((prevDisplayedCounter) => prevDisplayedCounter + 1);
-  };
+    const maxWidth = window.innerWidth - parseInt(imgWidth);
+    const maxHeight = window.innerHeight - parseInt(imgHeight);
+    const top = Math.random() * maxHeight;
+    const left = Math.random() * maxWidth;
 
+    let randomSoundUrl;
+    if (Math.random() < 0.10) { 
+      randomSoundUrl = rareSoundUrls[Math.floor(Math.random() * rareSoundUrls.length)];
+    } else {
+      randomSoundUrl = soundUrls[Math.floor(Math.random() * soundUrls.length)];
+    }
+    const audio = new Audio(randomSoundUrl);
+    audio.play();
+
+    setGifs((prevGifs) => {
+      const newGifs = [
+        ...prevGifs,
+        { id: Date.now(), top, left },
+      ];
+      if (newGifs.length > 13) {
+        newGifs.shift();
+      }
+      return newGifs;
+    });
+  };
   const syncCounter = useCallback(() => {
     console.log('syncCounter called', { newClicks, syncing });
     if (!syncing && newClicks > 0) {
@@ -34,7 +80,7 @@ const IMissButton: React.FC<IMissButtonProps> = ({ syncInterval, buttonText, but
         });
     }
   }, [newClicks, syncing]);
-  
+
   useEffect(() => {
     const initialSync = async () => {
       setSyncing(true);
@@ -53,19 +99,42 @@ const IMissButton: React.FC<IMissButtonProps> = ({ syncInterval, buttonText, but
 
   useEffect(() => {
     const interval = setInterval(() => {
-        syncCounter();
+      syncCounter();
     }, syncInterval);
     return () => {
-        clearInterval(interval);
+      clearInterval(interval);
     };
-}, [syncCounter, syncInterval]);
+  }, [syncCounter, syncInterval]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setGifs((prevGifs) => prevGifs.filter((gif) => Date.now() - gif.id < 3000));
+    }, 100);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <div>
-    <button onClick={handleClick} style={{ padding: '20px', borderRadius: '5px', fontSize: '30px' }}>
-      <img src={buttonImgUrl} alt={buttonText} style={{ width: '20px', height: '20px' }}/>
-    </button>
-    <p style={{ fontSize: '1.7em' , marginBottom:'15px'}}>Global Count: {displayedCounter}</p>
+      <button onClick={handleClick} style={{ padding: '20px', borderRadius: '5px', fontSize: '30px' }}>
+        {buttonText}
+      </button>
+      <p style={{ fontSize: '1.7em', marginBottom: '15px' }}>Global Count: {displayedCounter}</p>
+      {gifs.map((gif) => (
+        <img
+          key={gif.id}
+          src={buttonImgUrl}
+          alt="Animated Gif"
+          style={{
+            position: 'absolute',
+            top: gif.top,
+            left: gif.left,
+            zIndex: -1,
+            animation: 'fadeout 3s forwards, shake 0.5s',
+            width: imgWidth,
+            height: imgHeight,
+          }}
+        />
+      ))}
     </div>
   );
 };

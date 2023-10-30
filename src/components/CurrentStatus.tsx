@@ -98,13 +98,18 @@ const CurrentStatus: React.FC<CurrentStatusProps> = ({
               </div>
             ))}
           </Carousel>
-          <p className="title-text">
+          <p className="status-text">
             {data.channel.english_name} is not streaming
           </p>
           <p className="status-text">
             {formatElapsedTime(elapsedTime)} without a KonErinya
           </p>
-          <IMissButton syncInterval={12000} buttonText="Cry" buttonImgUrl="null" />
+          <IMissButton syncInterval={12000} 
+          buttonText="Cry" 
+          buttonImgUrl="https://files.pinapelz.com/rguk27.gif" 
+          imgWidth="250px"
+          imgHeight="250px"
+          />
         </>
       ) : (
         data.status === "live" && (
@@ -119,7 +124,13 @@ const CurrentStatus: React.FC<CurrentStatusProps> = ({
             <p className="status-text">
               Streamed for: {formatElapsedTime(elapsedTime)}
             </p>
-            <IMissButton syncInterval={12000} buttonText="Yipee!" buttonImgUrl="null" />
+            <IMissButton 
+            syncInterval={12000} 
+            buttonText="Yipee!" 
+            buttonImgUrl="https://files.pinpelz.com/rguk27.gif" 
+            imgWidth="250px"
+            imgHeight="250px"
+            />
           </>
         )
       )}
