@@ -40,8 +40,18 @@ const IMissButton: React.FC<IMissButtonProps> = ({ syncInterval, buttonText, but
     setDisplayedCounter((prevDisplayedCounter) => prevDisplayedCounter + 1);
     const maxWidth = window.innerWidth - parseInt(imgWidth);
     const maxHeight = window.innerHeight - parseInt(imgHeight);
-    const top = Math.random() * maxHeight;
-    const left = Math.random() * maxWidth;
+    const centerRegionSize = { width: maxWidth / 3, height: maxHeight / 3 };
+    let top = Math.random() * maxHeight;
+    let left = Math.random() * maxWidth;
+    if (
+      top > maxHeight / 2 - centerRegionSize.height / 2 &&
+      top < maxHeight / 2 + centerRegionSize.height / 2 &&
+      left > maxWidth / 2 - centerRegionSize.width / 2 &&
+      left < maxWidth / 2 + centerRegionSize.width / 2
+    ) {
+      top = top < maxHeight / 2 ? top - centerRegionSize.height : top + centerRegionSize.height;
+      left = left < maxWidth / 2 ? left - centerRegionSize.width : left + centerRegionSize.width;
+    }
 
     let randomSoundUrl;
     if (Math.random() < 0.10) { 
