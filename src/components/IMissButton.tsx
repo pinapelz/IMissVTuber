@@ -65,7 +65,7 @@ const IMissButton: React.FC<IMissButtonProps> = ({ syncInterval, buttonText, but
     <button onClick={handleClick} style={{ padding: '20px', borderRadius: '5px', fontSize: '30px' }}>
       <img src={buttonImgUrl} alt={buttonText} style={{ width: '20px', height: '20px' }}/>
     </button>
-    <p style={{ fontSize: '1.7em' , marginBottom:'15px'}}>{displayedCounter}</p>
+    <p style={{ fontSize: '1.7em' , marginBottom:'15px'}}>Global Count: {displayedCounter}</p>
     </div>
   );
 };
