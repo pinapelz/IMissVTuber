@@ -128,7 +128,8 @@ const CurrentStatus: React.FC<CurrentStatusProps> = ({
             ))}
           </Carousel>
           <p className="status-text">
-            {data.channel.english_name} is not streaming
+          Last seen streaming<br/>
+          <a href={"https://youtube.com/watch?v=" + data.id}>{data.title}</a>
           </p>
           <p className="status-text">
             {formatElapsedTime(elapsedTime)} without Erinya
