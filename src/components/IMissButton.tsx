@@ -40,7 +40,7 @@ const IMissButton: React.FC<IMissButtonProps> = ({ syncInterval, buttonText, but
     setDisplayedCounter((prevDisplayedCounter) => prevDisplayedCounter + 1);
     const maxWidth = window.innerWidth - parseInt(imgWidth);
     const maxHeight = window.innerHeight - parseInt(imgHeight);
-    const centerRegionSize = { width: maxWidth / 2, height: maxHeight / 2 };
+    const centerRegionSize = { width: maxWidth / 3, height: maxHeight / 3 };
     let top = Math.random() * maxHeight;
     let left = Math.random() * maxWidth;
     if (
