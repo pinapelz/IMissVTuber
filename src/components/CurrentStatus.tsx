@@ -85,6 +85,8 @@ const CurrentStatus: React.FC<CurrentStatusProps> = ({
             showStatus={false}
             showArrows={false}
             showIndicators={false}
+            autoPlay={true}
+            interval={15000}
             infiniteLoop={true}
             onClickItem={() => {
               setSelectedItem(
