@@ -91,10 +91,12 @@ def upcoming():
     url = f"https://holodex.net/api/v2/videos?channel_id={channel_id}&status=upcoming"
     headers = {"X-APIKEY": api_key}
     response = requests.get(url, headers=headers)
+    response_data = []
     for video in response.json():
         if video['id'] == free_chat:
-            response.json().remove(video)
-    return jsonify(response.json())
+            continue
+        response_data.append(video)
+    return jsonify(response_data)
 
 @app.route("/api/schedule", methods=['GET'])
 @cache.cached(timeout=1800)
