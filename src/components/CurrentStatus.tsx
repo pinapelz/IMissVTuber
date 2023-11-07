@@ -134,7 +134,7 @@ const CurrentStatus: React.FC<CurrentStatusProps> = ({
           <p className="status-text">
             {formatElapsedTime(elapsedTime)} without Erinya
           </p>
-          <IMissButton syncInterval={12000} 
+          <IMissButton syncInterval={7000} 
           buttonText="Cry" 
           buttonImgUrl="https://files.pinapelz.com/rguk27.gif" 
           imgWidth="250px"
@@ -155,7 +155,7 @@ const CurrentStatus: React.FC<CurrentStatusProps> = ({
               Streamed for: {formatElapsedTime(elapsedTime)}
             </p>
             <IMissButton 
-            syncInterval={12000} 
+            syncInterval={7000} 
             buttonText="Yipee!" 
             buttonImgUrl="https://files.pinpelz.com/rguk27.gif" 
             imgWidth="250px"
