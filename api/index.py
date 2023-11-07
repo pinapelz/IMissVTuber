@@ -88,9 +88,12 @@ def upcoming():
     """
     Get the upcoming streams of the channel
     """
-    url = f"https://holodex.net/api/v2/live?channel_id={channel_id}&status=upcoming"
+    url = f"https://holodex.net/api/v2/videos?channel_id={channel_id}&status=upcoming"
     headers = {"X-APIKEY": api_key}
     response = requests.get(url, headers=headers)
+    for video in response.json():
+        if video['id'] == free_chat:
+            response.json().remove(video)
     return jsonify(response.json())
 
 @app.route("/api/schedule", methods=['GET'])

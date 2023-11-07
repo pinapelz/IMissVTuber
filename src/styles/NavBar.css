@@ -1,5 +1,5 @@
 .navbar {
-    display: flex;
+    display: fixed;
     justify-content: center;
   }
   

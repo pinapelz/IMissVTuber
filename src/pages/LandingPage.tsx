@@ -55,7 +55,7 @@ function LandingPage() {
     };
   
     return (
-      <div className="container">
+      <div>
         <CurrentStatus data={data} loading={loading || isRefetching} error={error} />
         {autoRefresh && <ProgressBar onComplete={handleProgressComplete} />}
         <label>
