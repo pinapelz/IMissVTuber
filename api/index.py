@@ -95,8 +95,7 @@ def upcoming():
 
 @app.route("/api/schedule", methods=['GET'])
 def get_schedule():
-    return f"https://img.youtube.com/vi/{free_chat}/maxresdefault.jpg"
-    
+    return jsonify({"thumbnail": f"https://img.youtube.com/vi/{free_chat}/maxresdefault.jpg"})
 
 if __name__ == '__main__':
     app.run(debug=True)
