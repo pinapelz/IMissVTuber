@@ -88,7 +88,7 @@ function VideoRow() {
                             <circle cx="12" cy="12" r="10" />
                             <polyline points="12 6 12 12 16 14" />
                         </svg>
-                        <span>{video.available_at}</span>
+                        <span>{new Intl.DateTimeFormat('en-US', { dateStyle: 'medium', timeStyle: 'short' }).format(new Date(video.available_at))}</span>
                     </div>
                 </div>
             </a>
