@@ -94,6 +94,7 @@ def upcoming():
     return jsonify(response.json())
 
 @app.route("/api/schedule", methods=['GET'])
+@cache.cached(timeout=1800)
 def get_schedule():
     return jsonify({"thumbnail": f"https://img.youtube.com/vi/{free_chat}/maxresdefault.jpg"})
 
