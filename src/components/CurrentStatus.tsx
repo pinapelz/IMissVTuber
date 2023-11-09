@@ -97,7 +97,10 @@ const CurrentStatus: React.FC<CurrentStatusProps> = ({
     const hours = Math.floor(seconds / 3600);
     const minutes = Math.floor((seconds % 3600) / 60);
     const sec = seconds % 60;
-    return `${hours}h ${minutes}m ${sec}s`;
+    if (isNaN(hours) || isNaN(minutes) || isNaN(sec)){
+      return "Uh oh! No clue how long it's been without Erinya"
+    }
+    return `${hours}h ${minutes}m ${sec}s without Erinya`;
   };
   console.log(data.status);
 
@@ -132,7 +135,7 @@ const CurrentStatus: React.FC<CurrentStatusProps> = ({
           <a href={"https://youtube.com/watch?v=" + data.id}>{data.title}</a>
           </p>
           <p className="status-text">
-            {formatElapsedTime(elapsedTime)} without Erinya
+            {formatElapsedTime(elapsedTime)} 
           </p>
           <IMissButton syncInterval={7000} 
           buttonText="Cry" 
