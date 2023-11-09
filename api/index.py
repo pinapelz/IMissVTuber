@@ -24,7 +24,7 @@ def live():
 
     If the channel is not live, return the video data of the most recent past stream
     """
-    url = f"https://holodex.net/api/v2/live?channel_id={channel_id}&status=live"
+    url = f"https://holodex.net/api/v2/live?channel_id={channel_id}&status=live&type=stream"
     headers = {"X-APIKEY": api_key}
     response = requests.get(url, headers=headers)
     channel_live_data = {}
