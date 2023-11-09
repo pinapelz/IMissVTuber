@@ -18,6 +18,15 @@ p {
   font-size: 1.5rem;
 }
 
+.status-sub-text{
+  font-size: 1.2rem;
+  margin-top: 0.3rem;
+}
+
+.timer-text{
+  font-size: 1.5rem;
+  font-family: 'Quantico', sans-serif;
+}
 .title-text {
   font-size: 1.5rem;
   font-weight: bold;

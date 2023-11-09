@@ -69,6 +69,7 @@ const CurrentStatus: React.FC<CurrentStatusProps> = ({
 
   const [elapsedTime, setElapsedTime] = useState<number>(0);
   const [streamUrl, setStreamUrl] = useState<string>("");
+  const [streamType, setStreamType] = useState<string>("");
 
   useEffect(() => {
     const now = new Date();
@@ -98,9 +99,11 @@ const CurrentStatus: React.FC<CurrentStatusProps> = ({
     if (data?.link && data.link.includes("spaces")){
       // Twitter space
       setStreamUrl(data.link);
+      setStreamType("X (Twitter) Spaces");
     }
     else{
       setStreamUrl(`https://www.youtube.com/embed/${data?.id}`);
+      setStreamType("YouTube Live");
     }
   }, [data]);
 
@@ -151,8 +154,9 @@ const CurrentStatus: React.FC<CurrentStatusProps> = ({
           <a href={streamUrl}>
             {data.title}
           </a>
+          <p className="status-sub-text">On {streamType}</p>
           </p>
-          <p className="status-text">
+          <p className="timer-text">
             {formatElapsedTime(elapsedTime)} 
           </p>
           <IMissButton syncInterval={7000} 
@@ -166,13 +170,16 @@ const CurrentStatus: React.FC<CurrentStatusProps> = ({
         data.status === "live" && (
           <>
             <h1><AnimatedText text="Erinya is here!"/></h1>
-            <iframe
-              width="600"
-              height="315"
-              src={streamUrl}
-            ></iframe>
+            {streamType === "YouTube Live" ? (
+              <iframe
+                width="600"
+                height="315"
+                src={streamUrl}
+              ></iframe>
+            ) : null}
             <p className="title-text">{data.title}</p>
-            <p className="status-text">
+            <p>On {streamType}</p>
+            <p className="timer-text">
               Streamed for: {formatElapsedTime(elapsedTime)}
             </p>
             <IMissButton 
