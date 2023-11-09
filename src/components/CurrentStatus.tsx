@@ -71,7 +71,10 @@ const CurrentStatus: React.FC<CurrentStatusProps> = ({
   useEffect(() => {
     const now = new Date();
     if (data && data.status === "past") {
-      const endActual = new Date(data.end_actual);
+      let endActual = new Date(data.end_actual);
+      if (isNaN(endActual.getTime())) { // handle if end_actual is missing
+        endActual = new Date(data.start_actual);
+      }
       setElapsedTime(Math.floor((now.getTime() - endActual.getTime()) / 1000));
     } else if (data && data.status === "live") {
       const startActual = new Date(data.start_actual);
