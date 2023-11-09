@@ -14,6 +14,7 @@ interface StreamData {
   title: string;
   start_actual: string;
   id: string;
+  link?: string;
 }
 
 interface CurrentStatusProps {
@@ -67,6 +68,7 @@ const CurrentStatus: React.FC<CurrentStatusProps> = ({
   };
 
   const [elapsedTime, setElapsedTime] = useState<number>(0);
+  const [streamUrl, setStreamUrl] = useState<string>("");
 
   useEffect(() => {
     const now = new Date();
@@ -92,6 +94,16 @@ const CurrentStatus: React.FC<CurrentStatusProps> = ({
     return () => clearInterval(interval);
   }, []);
 
+  useEffect(() => {
+    if (data?.link && data.link.includes("spaces")){
+      // Twitter space
+      setStreamUrl(data.link);
+    }
+    else{
+      setStreamUrl(`https://www.youtube.com/embed/${data?.id}`);
+    }
+  }, [data]);
+
   if (loading) return <p>Loading...</p>;
   if (error) return <p>An error occurred while fetching data</p>;
   if (!data) return <p>No data received</p>;
@@ -105,7 +117,8 @@ const CurrentStatus: React.FC<CurrentStatusProps> = ({
     }
     return `${hours}h ${minutes}m ${sec}s without Erinya`;
   };
-  console.log(data.status);
+  
+
 
   return (
     <div>
@@ -135,13 +148,15 @@ const CurrentStatus: React.FC<CurrentStatusProps> = ({
           </Carousel>
           <p className="status-text">
           Last seen streaming<br/>
-          <a href={"https://youtube.com/watch?v=" + data.id}>{data.title}</a>
+          <a href={streamUrl}>
+            {data.title}
+          </a>
           </p>
           <p className="status-text">
             {formatElapsedTime(elapsedTime)} 
           </p>
           <IMissButton syncInterval={7000} 
-          buttonText="Cry" 
+          buttonText="Cope"
           buttonImgUrl="https://files.pinapelz.com/rguk27.gif" 
           imgWidth="250px"
           imgHeight="250px"
@@ -154,7 +169,7 @@ const CurrentStatus: React.FC<CurrentStatusProps> = ({
             <iframe
               width="600"
               height="315"
-              src={`https://www.youtube.com/embed/${data.id}`}
+              src={streamUrl}
             ></iframe>
             <p className="title-text">{data.title}</p>
             <p className="status-text">
