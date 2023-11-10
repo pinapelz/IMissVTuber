@@ -118,7 +118,7 @@ const CurrentStatus: React.FC<CurrentStatusProps> = ({
     if (isNaN(hours) || isNaN(minutes) || isNaN(sec)){
       return "Uh oh! No clue how long it's been without Erinya"
     }
-    return `${hours}h ${minutes}m ${sec}s without Erinya`;
+    return `${hours}h ${minutes}m ${sec}s`;
   };
   
 
@@ -157,7 +157,7 @@ const CurrentStatus: React.FC<CurrentStatusProps> = ({
           <p className="status-sub-text">On {streamType}</p>
           </p>
           <p className="timer-text">
-            {formatElapsedTime(elapsedTime)} 
+            {formatElapsedTime(elapsedTime)} without Erinya
           </p>
           <IMissButton syncInterval={7000} 
           buttonText="Cope"
@@ -185,7 +185,7 @@ const CurrentStatus: React.FC<CurrentStatusProps> = ({
             <IMissButton 
             syncInterval={7000} 
             buttonText="Yipee!" 
-            buttonImgUrl="https://files.pinpelz.com/rguk27.gif" 
+            buttonImgUrl="https://files.pinapelz.com/rguk27.gif" 
             imgWidth="250px"
             imgHeight="250px"
             />
