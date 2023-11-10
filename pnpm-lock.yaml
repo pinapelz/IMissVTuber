@@ -37,6 +37,9 @@ devDependencies:
   '@types/react-dom':
     specifier: ^18.2.7
     version: 18.2.14
+  '@types/react-modal':
+    specifier: ^3.16.3
+    version: 3.16.3
   '@typescript-eslint/eslint-plugin':
     specifier: ^6.0.0
     version: 6.9.0(@typescript-eslint/parser@6.9.0)(eslint@8.52.0)(typescript@5.2.2)
@@ -2350,6 +2353,12 @@ packages:
 
   /@types/react-dom@18.2.14:
     resolution: {integrity: sha512-V835xgdSVmyQmI1KLV2BEIUgqEuinxp9O4G6g3FqO/SqLac049E53aysv0oEFD2kHfejeKU+ZqL2bcFWj9gLAQ==}
+    dependencies:
+      '@types/react': 18.2.33
+    dev: true
+
+  /@types/react-modal@3.16.3:
+    resolution: {integrity: sha512-xXuGavyEGaFQDgBv4UVm8/ZsG+qxeQ7f77yNrW3n+1J6XAstUy5rYHeIHPh1KzsGc6IkCIdu6lQ2xWzu1jBTLg==}
     dependencies:
       '@types/react': 18.2.33
     dev: true
