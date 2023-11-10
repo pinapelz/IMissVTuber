@@ -185,7 +185,7 @@ const CurrentStatus: React.FC<CurrentStatusProps> = ({
             <IMissButton 
             syncInterval={7000} 
             buttonText="Yipee!" 
-            buttonImgUrl="https://files.pinpelz.com/rguk27.gif" 
+            buttonImgUrl="https://files.pinapelz.com/rguk27.gif" 
             imgWidth="250px"
             imgHeight="250px"
             />
