@@ -20,10 +20,9 @@
 .card {
     border-radius: 0.5rem;
     overflow: hidden;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     background-color: #ffffff;
     max-width: 24rem;
-    height: 24rem;
+    height: 21rem;
     transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; 
 }
 
@@ -53,7 +52,7 @@
   }
   
   .title {
-    font-weight: 600;
+    font-weight: 500;
     font-size: 1.125rem;
     color: black;
   }
@@ -78,4 +77,12 @@
     height: 1.25rem;
     color: #4b5563;
     align-items: center;
+  }
+
+  .heading {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: white;
+    margin-bottom: 1rem;
+    margin-top: 0.2rem;
   }

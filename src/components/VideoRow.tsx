@@ -59,6 +59,7 @@ function VideoRow() {
     }
 
     return (
+    <>
     <div className="container">
         {upcomingVideoData.map((video: Video, index: number) => (
             <a key={index} href={`https://youtube.com/watch?v=${video.id}`} className="card">
@@ -71,7 +72,6 @@ function VideoRow() {
                 </div>
                 <div className="content">
                     <h2 className="title">{video.title}</h2>
-                    <p className="channel-name">{video.channel.name}</p>
                     <div className="release-time">
                         <svg
                             className="icon"
@@ -88,12 +88,19 @@ function VideoRow() {
                             <circle cx="12" cy="12" r="10" />
                             <polyline points="12 6 12 12 16 14" />
                         </svg>
-                        <span>{new Intl.DateTimeFormat('en-US', { dateStyle: 'medium', timeStyle: 'short' }).format(new Date(video.available_at))}</span>
+                        <span>{new Intl.DateTimeFormat('en-US', { 
+                        dateStyle: 'medium', 
+                        timeStyle: 'short', 
+                        timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone 
+                        }).format(new Date(video.available_at))}
+                        </span>
                     </div>
                 </div>
             </a>
         ))}
     </div>
+    <p className="heading">{Intl.DateTimeFormat().resolvedOptions().timeZone} Time</p>
+    </>
     )
   }
 export default VideoRow;

@@ -7,6 +7,7 @@ function SchedulePage(){
     return (
         <>
         <ScheduleThumbnail/>
+        <p>Scheduled Waiting Rooms:</p>
         <VideoRow/>
         </>
     )
