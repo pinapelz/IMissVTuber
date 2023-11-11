@@ -61,7 +61,7 @@ function VideoRow() {
     return (
     <>
     <div className="container">
-        {upcomingVideoData.map((video: Video, index: number) => (
+            {upcomingVideoData.slice().reverse().map((video: Video, index: number) => (
             <a key={index} href={`https://youtube.com/watch?v=${video.id}`} className="card">
                 <div className="image-container">
                     <img
