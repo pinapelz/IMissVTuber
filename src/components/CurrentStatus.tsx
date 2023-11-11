@@ -7,6 +7,7 @@ import { useTrail, animated } from 'react-spring';
 interface StreamData {
   status: string;
   end_actual: string;
+  available_at: string;
   channel: {
     name: string;
     english_name: string;
@@ -76,7 +77,13 @@ const CurrentStatus: React.FC<CurrentStatusProps> = ({
     if (data && data.status === "past") {
       let endActual = new Date(data.end_actual);
       if (isNaN(endActual.getTime())) { // handle if end_actual is missing
-        endActual = new Date(data.start_actual);
+        if (data.start_actual !== null) {
+          endActual = new Date(data.start_actual);
+        }
+        else{
+          endActual = new Date(data.available_at);
+        }
+        
       }
       setElapsedTime(Math.floor((now.getTime() - endActual.getTime()) / 1000));
     } else if (data && data.status === "live") {
