@@ -5,6 +5,7 @@ import '../styles/LandingPage.css';
 
 interface StreamData {
   status: string;
+  available_at: string;
   end_actual: string;
   channel: {
     name: string;
