@@ -123,7 +123,7 @@ const CurrentStatus: React.FC<CurrentStatusProps> = ({
     const minutes = Math.floor((seconds % 3600) / 60);
     const sec = seconds % 60;
     if (isNaN(hours) || isNaN(minutes) || isNaN(sec)){
-      return "Uh oh! No clue how long it's been without Erinya"
+      return "Stream starting soon..."
     }
     return `${hours}h ${minutes}m ${sec}s`;
   };
