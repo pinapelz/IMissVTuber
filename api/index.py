@@ -13,6 +13,7 @@ cache = Cache(app, config={'CACHE_TYPE': 'simple'})
 api_key = os.environ.get('API_KEY')
 channel_id = os.environ.get('CHANNEL_ID')
 free_chat = os.environ.get('FREE_CHAT_ID')
+manual_override = os.environ.get('MANUAL_OVERRIDE') # Holodex sometimes reports wrong type for videos (shorts)
 
 
 @app.route('/api/live', methods=['GET'])
@@ -38,7 +39,7 @@ def live():
         past_videos = json.loads(response.text)
         index = 0
         while( is_free_chat ):
-            if past_videos[index]['id'] != free_chat:
+            if past_videos[index]['id'] != free_chat or past_videos[index]['id'] != manual_override:
                 is_free_chat = False
                 recent_past_video_id = past_videos[index]['id']
         url = f"https://holodex.net/api/v2/videos/{recent_past_video_id}"
