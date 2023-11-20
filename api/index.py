@@ -39,7 +39,7 @@ def live():
         past_videos = json.loads(response.text)
         index = 0
         while( is_free_chat ):
-            if past_videos[index]['id'] != free_chat or past_videos[index]['id'] != manual_override:
+            if past_videos[index]['id'] != free_chat and past_videos[index]['id'] != manual_override:
                 is_free_chat = False
                 recent_past_video_id = past_videos[index]['id']
         url = f"https://holodex.net/api/v2/videos/{recent_past_video_id}"
