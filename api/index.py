@@ -42,6 +42,7 @@ def live():
             if past_videos[index]['id'] != free_chat and past_videos[index]['id'] != manual_override:
                 is_free_chat = False
                 recent_past_video_id = past_videos[index]['id']
+            index += 1
         url = f"https://holodex.net/api/v2/videos/{recent_past_video_id}"
         response = requests.get(url, headers=headers)
         channel_live_data = response.json()
