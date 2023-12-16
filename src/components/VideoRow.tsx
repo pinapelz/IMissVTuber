@@ -24,7 +24,7 @@ function VideoRow() {
 
 
     useEffect( () => {
-        axios.get('https://imisserinya.vercel.app/api/upcoming')
+        axios.get('/api/upcoming')
             .then((response) => {
                 console.log(response.data)
                 setUpcomingVideoData(response.data || [])

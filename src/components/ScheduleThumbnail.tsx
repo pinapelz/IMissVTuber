@@ -12,7 +12,7 @@ React.memo(function ScheduleThumbnail() {
     const [modalIsOpen, setModalIsOpen] = useState(false);
 
     useEffect(() => {
-        axios.get('https://imisserinya.vercel.app/api/schedule')
+        axios.get('/api/schedule')
             .then((response) => {
                 console.log(response.data)
                 setThumbnail(response.data.thumbnail)

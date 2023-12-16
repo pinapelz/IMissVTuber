@@ -30,7 +30,7 @@ function LandingPage() {
       }
       setIsRefetching(true);
   
-      fetch("https://imisserinya.vercel.app/api/live")
+      fetch("/api/live")
         .then(response => {
           if (!response.ok) throw new Error("Network response was not ok");
           return response.json();

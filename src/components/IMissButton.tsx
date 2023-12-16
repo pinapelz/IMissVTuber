@@ -21,19 +21,26 @@ const IMissButton: React.FC<IMissButtonProps> = ({ syncInterval, buttonText, but
   const [syncing, setSyncing] = useState(false);
   const [gifs, setGifs] = useState<IGif[]>([]);
 
-  const soundUrls = [
-    'https://files.pinapelz.com/koneri1.wav',
-    'https://files.pinapelz.com/koneri2.wav',
-    'https://files.pinapelz.com/koneri3.wav',
-    'https://files.pinapelz.com/koneri4.wav',
-  ];
+  const [soundUrls, setSoundUrls] = useState<string[]>([]);
+  const [rareSoundUrls, setRareSoundUrls] = useState<string[]>([]);
 
-  const rareSoundUrls = [
-    'https://files.pinapelz.com/bust.wav',
-    'https://files.pinapelz.com/honey.wav',
-    'https://files.pinapelz.com/thirst.wav',
-    'https://files.pinapelz.com/kya.wav',
-  ];
+  useEffect(() => {
+    const fetchSoundUrls = async () => {
+      try {
+        const response = await fetch('/site-config.json');
+        const data = await response.json();
+        setSoundUrls(data.soundUrls);
+        setRareSoundUrls(data.rareSoundUrls);
+      } catch (error) {
+        console.error('Error loading soundUrls:', error);
+      }
+    };
+
+
+
+    fetchSoundUrls();
+  }, []);
+
 
   const handleClick = () => {
     setNewClicks((prevNewClicks) => prevNewClicks + 1);
@@ -77,7 +84,7 @@ const IMissButton: React.FC<IMissButtonProps> = ({ syncInterval, buttonText, but
     console.log('syncCounter called', { newClicks, syncing });
     if (!syncing && newClicks > 0) {
       setSyncing(true);
-      axios.post('https://imisserinya.moekyun.me/api/counter/sync', { counter: `${newClicks}` })
+      axios.post('/api/counter/sync', { counter: `${newClicks}` })
         .then((response) => {
           setDisplayedCounter(parseInt(response.data.counter, 10));
           setNewClicks(0);
@@ -95,7 +102,7 @@ const IMissButton: React.FC<IMissButtonProps> = ({ syncInterval, buttonText, but
     const initialSync = async () => {
       setSyncing(true);
       try {
-        const response = await axios.post('https://imisserinya.moekyun.me/api/counter/sync', { counter: '0' });
+        const response = await axios.post('/api/counter/sync', { counter: '0' });
         setDisplayedCounter(parseInt(response.data.counter, 10));
       } catch (error) {
         console.error('Error during initial sync:', error);

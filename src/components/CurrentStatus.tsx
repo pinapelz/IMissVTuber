@@ -56,13 +56,24 @@ const CurrentStatus: React.FC<CurrentStatusProps> = ({
   error,
 }) => {
   const [selectedItem, setSelectedItem] = useState(0);
-  const pastImages = [
-    "https://files.pinapelz.com/mqijtw.webp",
-    "https://files.pinapelz.com/ericry.webp",
-    "https://files.pinapelz.com/erina-makina-phase-connect.gif",
-    "https://files.pinapelz.com/1156339143861866527.webp",
-    "https://files.pinapelz.com/1077804029737975879.webp",
-  ];
+  const [pastImages, setPastImages] = useState<string[]>([]);
+  const [buttonIcon, setButtonIcon] = useState<string>("");
+
+  useEffect(() => {
+    const fetchPastImages = async () => {
+      try {
+        const response = await fetch("/site-config.json");
+        const data = await response.json();
+        setPastImages(data.pastImages);
+        setButtonIcon(data.buttonIcon);
+      } catch (error) {
+        console.error("Error loading past images:", error);
+      }
+    };
+
+    fetchPastImages();
+  }, []);
+
   const imageStyle = {
     height: "300px",
     width: "auto",
@@ -168,7 +179,7 @@ const CurrentStatus: React.FC<CurrentStatusProps> = ({
           </p>
           <IMissButton syncInterval={7000} 
           buttonText="Cope"
-          buttonImgUrl="https://files.pinapelz.com/rguk27.gif" 
+          buttonImgUrl={buttonIcon}
           imgWidth="250px"
           imgHeight="250px"
           />
@@ -192,7 +203,7 @@ const CurrentStatus: React.FC<CurrentStatusProps> = ({
             <IMissButton 
             syncInterval={7000} 
             buttonText="Yipee!" 
-            buttonImgUrl="https://files.pinapelz.com/rguk27.gif" 
+            buttonImgUrl={buttonIcon} 
             imgWidth="250px"
             imgHeight="250px"
             />
