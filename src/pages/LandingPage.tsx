@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import CurrentStatus from "../components/CurrentStatus";
 import ProgressBar from "../components/ProgressBar";
 import '../styles/LandingPage.css';  
+import Navbar from "../components/NavBar";
 
 interface StreamData {
   status: string;
@@ -56,6 +57,8 @@ function LandingPage() {
     };
   
     return (
+      <>
+      <Navbar/>
       <div>
         <CurrentStatus data={data} loading={loading || isRefetching} error={error} />
         {autoRefresh && <ProgressBar onComplete={handleProgressComplete} />}
@@ -64,6 +67,7 @@ function LandingPage() {
           <input type="checkbox" checked={autoRefresh} onChange={() => setAutoRefresh(!autoRefresh)} /> {/* Checkbox to toggle auto-refresh */}
         </label>
       </div>
+      </>
     );
   }
   

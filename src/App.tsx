@@ -3,15 +3,16 @@ import "./styles/App.css";
 import LandingPage from "./pages/LandingPage";
 import SchedulePage from "./pages/Schedule";
 import Navbar from "./components/NavBar";
+import TimestampsPage from "./pages/Timestamps";
 
 function App() {
   return (
     <>
       <BrowserRouter>
-        <Navbar/>
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/schedule" element={<SchedulePage />} />
+          <Route path="/timestamps" element={<TimestampsPage />} />
         </Routes>
       </BrowserRouter>
       <footer style={{ marginTop: '20px' }}>
