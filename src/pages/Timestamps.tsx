@@ -23,7 +23,9 @@ function TimestampsPage(){
     }, [id]);
 
     return (
+        <div className="TimestampsPage">
         <Markdown remarkPlugins={[remarkGfm]}>{markdown}</Markdown>
+        </div>
     )
 }
 

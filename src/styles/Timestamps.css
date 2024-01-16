@@ -1,18 +1,7 @@
 .TimestampsPage {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
+    text-align: left;
 }
-
 .TimestampsPage .markdown-content {
     max-width: 800px;
     width: 100%;
 }
-
-#root {
-    margin: 0 auto;
-    padding: 2rem;
-    text-align: left;
-    overflow-x: hidden;
-  }
