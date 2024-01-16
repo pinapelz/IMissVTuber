@@ -2,7 +2,6 @@ import { Route, Routes, BrowserRouter } from "react-router-dom";
 import "./styles/App.css";
 import LandingPage from "./pages/LandingPage";
 import SchedulePage from "./pages/Schedule";
-import Navbar from "./components/NavBar";
 import TimestampsPage from "./pages/Timestamps";
 
 function App() {
