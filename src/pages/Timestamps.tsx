@@ -14,7 +14,7 @@ function TimestampsPage(){
     const id = query.get("id");
 
     useEffect(() => {
-        fetch(`https://gitlab.com/pinapelz/erina-makina-timestamps/-/raw/main/${id}.md`)
+        fetch(`https://corsproxy.io/?https://gitlab.com/pinapelz/erina-makina-timestamps/-/raw/main/${id}.md`)
             .then(response => response.text())
             .then(data => {
                 console.log(data);
