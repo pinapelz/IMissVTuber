@@ -14,7 +14,7 @@ function TimestampsPage(){
     const id = query.get("id");
 
     useEffect(() => {
-        fetch(`https://content.pinapelz.com/file/vtuber-rabbit-hole-archive/ErinaTimestamps/${id}.md`)
+        fetch(`https://gitlab.com/pinapelz/erina-makina-timestamps/-/raw/main/${id}.md`)
             .then(response => response.text())
             .then(data => {
                 console.log(data);
