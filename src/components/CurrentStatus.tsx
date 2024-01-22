@@ -134,9 +134,9 @@ const CurrentStatus: React.FC<CurrentStatusProps> = ({
     const minutes = Math.floor((seconds % 3600) / 60);
     const sec = seconds % 60;
     if (isNaN(hours) || isNaN(minutes) || isNaN(sec)){
-      return "There's a video, but we're still"
+      return "There's a video. Go watch it."
     }
-    return `${hours}h ${minutes}m ${sec}s`;
+    return `${hours}h ${minutes}m ${sec}s without Erinya`;
   };
   
 
@@ -175,7 +175,7 @@ const CurrentStatus: React.FC<CurrentStatusProps> = ({
           <p className="status-sub-text">On {streamType}</p>
           </p>
           <p className="timer-text">
-            {formatElapsedTime(elapsedTime)} without Erinya
+            {formatElapsedTime(elapsedTime)}
           </p>
           <IMissButton syncInterval={7000} 
           buttonText="Cope"
