@@ -6,7 +6,7 @@ The template gets you started with...
 - A schedule page which shows the current published schedule and listed waiting rooms
 - Nyanpasu! style button
 
-[Knowledge Base](https://knowledge.pinapelz.com/imisssomeone-vt.html)
+[Knowledge Base](https://knowledge.pinapelz.com/repos/i-miss-someone-vt)
 
 
 ![](https://github.com/pinapelz/pinapelz/assets/21994085/cc0f1230-76a4-416c-8aa7-eb88172679b4)
