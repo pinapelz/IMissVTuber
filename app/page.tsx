@@ -8,6 +8,7 @@ You can do so in: public/site-config.json
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { useEffect, useState } from "react";
+import Footer from "@/components/Footer";
 
 import CopeButton from "@/components/CopeButton";
 
@@ -17,6 +18,7 @@ export default function Home() {
   const [timeSinceLastActivity, setTimeSinceLastActivity] = useState(0);
   const [buttonAudioUrls, setButtonAudioUrls] = useState<string[]>([]);
   const [rareButtonAudioUrls, setRareButtonAudioUrls] = useState<string[]>([]);
+  const [copeButtonClickCount, setCopeButtonClickCount] = useState(0);
 
   const playRandomAudioUrl = () => {
     // Rare sound effect has a 1/10 chance of playing
@@ -28,6 +30,11 @@ export default function Home() {
       new Audio(buttonAudioUrls[randomIndex]).play();
     }
   };
+
+  const handleCopeButtonClick = () => {
+    setCopeButtonClickCount((prevCount) => prevCount + 1);
+    playRandomAudioUrl();
+  }
 
   const [recentData, setRecentData] = useState<VideoData>({
     is_live: false,
@@ -145,12 +152,16 @@ export default function Home() {
         </>
       )}
       <CopeButton
-        onClick={playRandomAudioUrl}
+        onClick={handleCopeButtonClick}
         buttonText={recentData.is_live ? "Yipee!" : "Cope"}
         buttonImgUrl="https://files.pinapelz.com/rguk27.gif"
         imgWidth="250px"
         imgHeight="250px"
       />
+      <h2 className="text-center text-lg">
+        {copeButtonClickCount} times
+      </h2>
+      <Footer message={"Not affiliated with " + (recentData.affiliation ? recentData.affiliation : recentData.channel_name)} />
     </>
   );
 
@@ -158,6 +169,7 @@ export default function Home() {
     is_live: boolean;
     channel_name: string;
     channel_id: string;
+    affiliation: string;
     title: string;
     video_id: string;
     time_started?: string;

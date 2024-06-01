@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { HolodexApiClient, ChannelVideosParam } from 'holodex.js';
 
 
+
 export async function GET() {
   const client = new HolodexApiClient({
     apiKey: process.env.HOLODEX_API_KEY || "",
@@ -17,6 +18,7 @@ export async function GET() {
         is_live: true,
         channel_name: `${videos[i].channel.englishName || videos[i].channel.name}`,
         channel_id: `${videos[i].channel.channelId}`,
+        affiliation: `${videos[i].channel.organization || ""}`,
         title: `${videos[i].title}`,
         video_id: `${videos[i].videoId}`,
         time_started: `${videos[i].availableAt}`,
@@ -29,6 +31,7 @@ export async function GET() {
           is_live: false,
           channel_name: `${videos[i].channel.englishName || videos[i].channel.name}`,
           channel_id: `${videos[i].channel.channelId}`,
+          affiliation: `${videos[i].channel.organization || ""}`,
           title: `${videos[i].title}`,
           video_id: `${videos[i].videoId}`,
           time_ended: `${videos[i].publishedAt}`,
