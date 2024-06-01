@@ -1,3 +1,9 @@
+/*
+You may want to change the images used on the "is_live=false" carousel
+to match the image of whoever this site is deployed for
+
+You can do so in: public/site-config.json
+*/
 "use client";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
@@ -6,6 +12,7 @@ import { useEffect, useState } from "react";
 export default function Home() {
   const [selectedItem, setSelectedItem] = useState(0);
   const [images, setImages] = useState<string[]>([]);
+  const [timeSinceLastActivity, setTimeSinceLastActivity] = useState(0);
 
   const [recentData, setRecentData] = useState<VideoData>({
     is_live: false,
@@ -16,7 +23,7 @@ export default function Home() {
   } as VideoData);
 
   useEffect(() => {
-    const fetchPastImages = async () => {
+    (async () => {
       try {
         const response = await fetch("/site-config.json");
         const data = await response.json();
@@ -24,12 +31,11 @@ export default function Home() {
       } catch (error) {
         console.error("Error loading past images:", error);
       }
-    };
-    fetchPastImages();
+    })();
   }, []);
 
   useEffect(() => {
-    const fetchRecentData = async () => {
+    (async () => {
       try {
         const response = await fetch("/api/recent");
         const data = await response.json();
@@ -37,9 +43,25 @@ export default function Home() {
       } catch (error) {
         console.error("Error loading recent data:", error);
       }
-    };
-    fetchRecentData();
+    })();
   }, []);
+
+  useEffect(() => {
+    // Logic for updating the time since the last activity
+    // If there is a currently live stream, use time since stream started
+    // If there is no live stream, use time since last stream ended
+    const timer = setInterval(() => {
+      const now = new Date();
+      const timeSinceActive = recentData.is_live
+        ? now.getTime() - new Date(recentData.time_started || "").getTime()
+        : now.getTime() - new Date(recentData.time_ended || "").getTime();
+      setTimeSinceLastActivity(timeSinceActive);
+    }, 1000);
+  
+    return () => {
+      clearInterval(timer);
+    };
+  }, [recentData.is_live, recentData.time_ended, recentData.time_started]);
 
   const imageStyle = {
     height: "300px",
@@ -48,7 +70,7 @@ export default function Home() {
 
   return (
     <>
-      <h1 className="text-center text-lg">I Miss {recentData.channel_name}</h1>
+      <h1 className="text-center text-4xl">I Miss {recentData.channel_name}</h1>
       {recentData.is_live ? (
         <div className="d-flex justify-content-center align-items-center flex-column">
           <h2 className="text-center text-lg">
@@ -67,6 +89,7 @@ export default function Home() {
           a
         </div>
       ) : (
+        <>
         <Carousel
           selectedItem={selectedItem}
           showThumbs={false}
@@ -88,6 +111,21 @@ export default function Home() {
             </div>
           ))}
         </Carousel>
+        <h1 className="text-center text-2xl">
+          {recentData.channel_name} is not live right now.
+          <br/>
+          Most Recent Activity:
+        </h1>
+        <h1 className="text-center text-xl">
+          {recentData.title}
+        </h1>
+        <h2 className="text-center text-lg">
+          {String(Math.floor(timeSinceLastActivity / 1000 / 60 / 60)).padStart(2, '0')}:
+          {String(Math.floor((timeSinceLastActivity / 1000 / 60) % 60)).padStart(2, '0')}:
+          {String(Math.floor((timeSinceLastActivity / 1000) % 60)).padStart(2, '0')}
+          {' '}ago
+        </h2>
+        </>
       )}
     </>
   );
