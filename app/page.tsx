@@ -70,7 +70,7 @@ export default function Home() {
 
   return (
     <>
-      <h1 className="text-center text-4xl">I Miss {recentData.channel_name}</h1>
+  <h1 className="text-center font-bold text-4xl" style={{fontFamily: 'Arial'}}>I Miss {recentData.channel_name}</h1>
       {recentData.is_live ? (
         <div className="d-flex justify-content-center align-items-center flex-column">
           <h2 className="text-center text-lg">
@@ -117,7 +117,7 @@ export default function Home() {
           Most Recent Activity:
         </h1>
         <h1 className="text-center text-xl">
-          {recentData.title}
+          <a href={`https://youtube.com/watch?v=${recentData.video_id}`}>{recentData.title}</a>
         </h1>
         <h2 className="text-center text-lg">
           {String(Math.floor(timeSinceLastActivity / 1000 / 60 / 60)).padStart(2, '0')}:
