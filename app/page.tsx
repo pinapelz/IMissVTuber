@@ -9,10 +9,25 @@ import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { useEffect, useState } from "react";
 
+import CopeButton from "@/components/CopeButton";
+
 export default function Home() {
   const [selectedItem, setSelectedItem] = useState(0);
   const [images, setImages] = useState<string[]>([]);
   const [timeSinceLastActivity, setTimeSinceLastActivity] = useState(0);
+  const [buttonAudioUrls, setButtonAudioUrls] = useState<string[]>([]);
+  const [rareButtonAudioUrls, setRareButtonAudioUrls] = useState<string[]>([]);
+
+  const playRandomAudioUrl = () => {
+    // Rare sound effect has a 1/10 chance of playing
+    if (Math.random() < 0.1) {
+      const randomIndex = Math.floor(Math.random() * rareButtonAudioUrls.length);
+      new Audio(rareButtonAudioUrls[randomIndex]).play();
+    } else {
+      const randomIndex = Math.floor(Math.random() * buttonAudioUrls.length);
+      new Audio(buttonAudioUrls[randomIndex]).play();
+    }
+  };
 
   const [recentData, setRecentData] = useState<VideoData>({
     is_live: false,
@@ -28,6 +43,8 @@ export default function Home() {
         const response = await fetch("/site-config.json");
         const data = await response.json();
         setImages(data.pastImages);
+        setButtonAudioUrls(data.soundUrls);
+        setRareButtonAudioUrls(data.rareSoundUrls);
       } catch (error) {
         console.error("Error loading past images:", error);
       }
@@ -127,6 +144,13 @@ export default function Home() {
         </h2>
         </>
       )}
+      <CopeButton
+        onClick={playRandomAudioUrl}
+        buttonText={recentData.is_live ? "Yipee!" : "Cope"}
+        buttonImgUrl="https://files.pinapelz.com/rguk27.gif"
+        imgWidth="250px"
+        imgHeight="250px"
+      />
     </>
   );
 

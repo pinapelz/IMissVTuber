@@ -1,0 +1,7 @@
+.shake {
+  @apply animate-shake;
+}
+
+.fadeout {
+  @apply animate-fadeout;
+}

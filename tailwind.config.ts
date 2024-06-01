@@ -8,11 +8,23 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+      animation: {
+        'shake': 'shake 1s infinite',
+        'fadeout': 'fadeout 1s forwards'
       },
+      keyframes: {
+        shake: {
+          '0%': { transform: 'rotate(0deg)' },
+          '25%': { transform: 'rotate(-5deg)' },
+          '50%': { transform: 'rotate(5deg)' },
+          '75%': { transform: 'rotate(-5deg)' },
+          '100%': { transform: 'rotate(0deg)' },
+        },
+        fadeout: {
+          'from': { opacity: '1' },
+          'to': { opacity: '0' },
+        }
+      }
     },
   },
   plugins: [],
