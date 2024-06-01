@@ -45,7 +45,7 @@ const CopeButton: React.FC<CopeButtonProps> = ({
       return () => clearTimeout(timer);
     }
   }, [gifs]);
-  
+
   return (
     <div
       className="text-lg text-center"
@@ -57,7 +57,7 @@ const CopeButton: React.FC<CopeButtonProps> = ({
     >
       <button
         onClick={handleClick}
-        className="px-5 py-5 rounded-lg text-3xl bg-blue-500"
+        className="px-5 py-5 rounded-lg text-3xl bg-blue-500 hover:scale-110 transform transition duration-300 ease-in-out"
       >
         {buttonText}
       </button>
@@ -70,11 +70,12 @@ const CopeButton: React.FC<CopeButtonProps> = ({
             position: "absolute",
             top: gif.top,
             left: gif.left,
-            zIndex: -1,
+            zIndex: 999,
             width: imgWidth,
             height: imgHeight,
             animation: "shake 0.5s infinite, fadeout 3s forwards",
             transformOrigin: "center center",
+            pointerEvents: "none",
           }}
           className="fadeout"
         />
