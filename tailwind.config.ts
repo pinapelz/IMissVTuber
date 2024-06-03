@@ -8,6 +8,9 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      colors: {
+        'accent' : '#1A4A7F',
+      },
       animation: {
         'shake': 'shake 1s infinite',
         'fadeout': 'fadeout 1s forwards'

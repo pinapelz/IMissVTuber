@@ -8,9 +8,11 @@ You can do so in: public/site-config.json
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { useEffect, useState } from "react";
+
+import Navbar from "@/components/Navbar";
+import CopeButton from "@/components/CopeButton";
 import Footer from "@/components/Footer";
 
-import CopeButton from "@/components/CopeButton";
 
 export default function Home() {
   const [selectedItem, setSelectedItem] = useState(0);
@@ -94,7 +96,9 @@ export default function Home() {
 
   return (
     <>
-  <h1 className="text-center font-bold text-4xl" style={{fontFamily: 'Arial'}}>I Miss {recentData.channel_name}</h1>
+<h1 className="text-center font-bold text-7xl my-8 transition-colors duration-1000 ease-in-out hover:text-accent">
+  I Miss {recentData.channel_name}
+</h1>
       {recentData.is_live ? (
         <div className="d-flex justify-content-center align-items-center flex-column">
           <h2 className="text-center text-lg">
@@ -135,15 +139,16 @@ export default function Home() {
             </div>
           ))}
         </Carousel>
-        <h1 className="text-center text-2xl">
-          {recentData.channel_name} is not live right now.
-          <br/>
-          Most Recent Activity:
-        </h1>
-        <h1 className="text-center text-xl">
+<h1 className="text-center font-semibold text-3xl mt-4">
+  {recentData.channel_name} is <span className="font-bold text-red-500">not</span> live right now
+</h1>
+        <h1 className="text-center mt-4 text-2xl">
+          Most recent activity:
+          </h1>
+        <h1 className="text-center font-extrabold mt-2 text-2xl">
           <a href={`https://youtube.com/watch?v=${recentData.video_id}`}>{recentData.title}</a>
         </h1>
-        <h2 className="text-center text-lg">
+        <h2 className="text-center text-2xl mt-4">
           {String(Math.floor(timeSinceLastActivity / 1000 / 60 / 60)).padStart(2, '0')}:
           {String(Math.floor((timeSinceLastActivity / 1000 / 60) % 60)).padStart(2, '0')}:
           {String(Math.floor((timeSinceLastActivity / 1000) % 60)).padStart(2, '0')}
@@ -151,6 +156,7 @@ export default function Home() {
         </h2>
         </>
       )}
+      <div className="p-4">
       <CopeButton
         onClick={handleCopeButtonClick}
         buttonText={recentData.is_live ? "Yipee!" : "Cope"}
@@ -158,10 +164,13 @@ export default function Home() {
         imgWidth="250px"
         imgHeight="250px"
       />
+      </div>
+
       <h2 className="text-center text-lg">
         {copeButtonClickCount} times
       </h2>
-      <Footer message={"Not affiliated with " + (recentData.affiliation ? recentData.affiliation : recentData.channel_name)} />
+    <Navbar />
+    <Footer message={"Not affiliated with " + (recentData.affiliation ? recentData.affiliation : recentData.channel_name)} />
     </>
   );
 
