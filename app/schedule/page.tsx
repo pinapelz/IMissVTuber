@@ -26,17 +26,22 @@ export default function SchedulePage() {
       <p className="text-2xl mt-2">
         Lets hope that the schedule is up to date...
       </p>
-      <div className="mt-8">
-        <img
-          src={`https://img.youtube.com/vi/${process.env.NEXT_PUBLIC_SCHEDULE_THUMBNAIL}/maxresdefault.jpg`}
-          alt="Schedule Thumbnail"
-          className="mx-auto rounded-lg shadow-lg w-screen"
-        />
-      </div>
+      {process.env.NEXT_PUBLIC_SCHEDULE_THUMBNAIL ? (
+        <div className="mt-8">
+          <img
+            src={`https://img.youtube.com/vi/${process.env.NEXT_PUBLIC_SCHEDULE_THUMBNAIL}/maxresdefault.jpg`}
+            alt="Schedule Thumbnail"
+            className="mx-auto rounded-lg shadow-lg w-screen"
+          />
+        </div>
+      ) : null}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-8 px-2">
         {upcomingVideoData && upcomingVideoData.length > 0 ? (
           upcomingVideoData
-            .filter(video => video.video_id !== process.env.NEXT_PUBLIC_SCHEDULE_THUMBNAIL)
+            .filter(
+              (video) =>
+                video.video_id !== process.env.NEXT_PUBLIC_SCHEDULE_THUMBNAIL
+            )
             .sort(
               (a, b) =>
                 new Date(a.scheduled_time).getTime() -
