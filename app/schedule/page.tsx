@@ -53,7 +53,7 @@ export default function SchedulePage() {
                 key={video.video_id}
               >
                 <VideoCard
-                  thumbnail={`https://img.youtube.com/vi/${video.video_id}/maxresdefault.jpg`}
+                  video_id={video.video_id}
                   title={video.title}
                   startTime={new Intl.DateTimeFormat("en-US", {
                     year: "numeric",
