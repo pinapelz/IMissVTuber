@@ -149,9 +149,9 @@ export default function Home() {
           <a href={`https://youtube.com/watch?v=${recentData.video_id}`}>{recentData.title}</a>
         </h1>
         <h2 className="text-center text-2xl mt-4">
-          {String(Math.floor(timeSinceLastActivity / 1000 / 60 / 60)).padStart(2, '0')}:
-          {String(Math.floor((timeSinceLastActivity / 1000 / 60) % 60)).padStart(2, '0')}:
-          {String(Math.floor((timeSinceLastActivity / 1000) % 60)).padStart(2, '0')}
+          {String(Math.floor(timeSinceLastActivity / 1000 / 60 / 60)).padStart(2, '0')} hours{' '}
+          {String(Math.floor((timeSinceLastActivity / 1000 / 60) % 60)).padStart(2, '0')} minutes{' '} 
+          {String(Math.floor((timeSinceLastActivity / 1000) % 60)).padStart(2, '0')} seconds{' '}
           {' '}ago
         </h2>
         </>
