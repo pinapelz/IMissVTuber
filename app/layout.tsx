@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Quantico } from "next/font/google";
 import "./globals.css";
 
-const quantico = Quantico({ weight: "400", subsets: ["latin"]});
+const quantico = Quantico({ weight: "400", subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "I Miss Erinya",

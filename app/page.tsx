@@ -13,7 +13,6 @@ import Navbar from "@/components/Navbar";
 import CopeButton from "@/components/CopeButton";
 import Footer from "@/components/Footer";
 
-
 export default function Home() {
   const [selectedItem, setSelectedItem] = useState(0);
   const [images, setImages] = useState<string[]>([]);
@@ -25,7 +24,9 @@ export default function Home() {
   const playRandomAudioUrl = () => {
     // Rare sound effect has a 1/10 chance of playing
     if (Math.random() < 0.1) {
-      const randomIndex = Math.floor(Math.random() * rareButtonAudioUrls.length);
+      const randomIndex = Math.floor(
+        Math.random() * rareButtonAudioUrls.length
+      );
       new Audio(rareButtonAudioUrls[randomIndex]).play();
     } else {
       const randomIndex = Math.floor(Math.random() * buttonAudioUrls.length);
@@ -36,7 +37,7 @@ export default function Home() {
   const handleCopeButtonClick = () => {
     setCopeButtonClickCount((prevCount) => prevCount + 1);
     playRandomAudioUrl();
-  }
+  };
 
   const [recentData, setRecentData] = useState<VideoData>({
     is_live: false,
@@ -83,7 +84,7 @@ export default function Home() {
         : now.getTime() - new Date(recentData.time_ended || "").getTime();
       setTimeSinceLastActivity(timeSinceActive);
     }, 1000);
-  
+
     return () => {
       clearInterval(timer);
     };
@@ -96,9 +97,9 @@ export default function Home() {
 
   return (
     <>
-<h1 className="text-center font-bold text-7xl my-8 transition-colors duration-1000 ease-in-out hover:text-accent">
-  I Miss {recentData.channel_name}
-</h1>
+      <h1 className="text-center font-bold text-7xl my-8 transition-colors duration-1000 ease-in-out hover:text-accent">
+        I Miss {recentData.channel_name}
+      </h1>
       {recentData.is_live ? (
         <div className="d-flex justify-content-center align-items-center flex-column">
           <h2 className="text-center text-lg">
@@ -118,59 +119,74 @@ export default function Home() {
         </div>
       ) : (
         <>
-        <Carousel
-          selectedItem={selectedItem}
-          showThumbs={false}
-          showStatus={false}
-          showArrows={false}
-          showIndicators={false}
-          autoPlay={true}
-          interval={15000}
-          infiniteLoop={true}
-          onClickItem={() => {
-            setSelectedItem(
-              (prevSelectedItem) => (prevSelectedItem + 1) % images.length
-            );
-          }}
-        >
-          {images.map((url, index) => (
-            <div key={index}>
-              <img style={imageStyle} src={url} alt={`Past Image ${index}`} />
-            </div>
-          ))}
-        </Carousel>
-<h1 className="text-center font-semibold text-3xl mt-4">
-  {recentData.channel_name} is <span className="font-bold text-red-500">not</span> live right now
-</h1>
-        <h1 className="text-center mt-4 text-2xl">
-          Most recent activity:
+          <Carousel
+            selectedItem={selectedItem}
+            showThumbs={false}
+            showStatus={false}
+            showArrows={false}
+            showIndicators={false}
+            autoPlay={true}
+            interval={15000}
+            infiniteLoop={true}
+            onClickItem={() => {
+              setSelectedItem(
+                (prevSelectedItem) => (prevSelectedItem + 1) % images.length
+              );
+            }}
+          >
+            {images.map((url, index) => (
+              <div key={index}>
+                <img style={imageStyle} src={url} alt={`Past Image ${index}`} />
+              </div>
+            ))}
+          </Carousel>
+          <h1 className="text-center font-semibold text-3xl mt-4">
+            {recentData.channel_name} is{" "}
+            <span className="font-bold text-red-500">not</span> live right now
           </h1>
-        <h1 className="text-center font-extrabold mt-2 text-2xl">
-          <a href={`https://youtube.com/watch?v=${recentData.video_id}`}>{recentData.title}</a>
-        </h1>
-        <h2 className="text-center text-2xl mt-4">
-          {String(Math.floor(timeSinceLastActivity / 1000 / 60 / 60)).padStart(2, '0')} hours{' '}
-          {String(Math.floor((timeSinceLastActivity / 1000 / 60) % 60)).padStart(2, '0')} minutes{' '} 
-          {String(Math.floor((timeSinceLastActivity / 1000) % 60)).padStart(2, '0')} seconds{' '}
-          {' '}ago
-        </h2>
+          <h1 className="text-center mt-4 text-2xl">Most recent activity:</h1>
+          <h1 className="text-center font-extrabold mt-2 text-2xl">
+            <a href={`https://youtube.com/watch?v=${recentData.video_id}`}>
+              {recentData.title}
+            </a>
+          </h1>
+          <h2 className="text-center text-2xl mt-4">
+            {String(
+              Math.floor(timeSinceLastActivity / 1000 / 60 / 60)
+            ).padStart(2, "0")}{" "}
+            hours{" "}
+            {String(
+              Math.floor((timeSinceLastActivity / 1000 / 60) % 60)
+            ).padStart(2, "0")}{" "}
+            minutes{" "}
+            {String(Math.floor((timeSinceLastActivity / 1000) % 60)).padStart(
+              2,
+              "0"
+            )}{" "}
+            seconds ago
+          </h2>
         </>
       )}
       <div className="p-4">
-      <CopeButton
-        onClick={handleCopeButtonClick}
-        buttonText={recentData.is_live ? "Yipee!" : "Cope"}
-        buttonImgUrl="https://files.pinapelz.com/rguk27.gif"
-        imgWidth="250px"
-        imgHeight="250px"
-      />
+        <CopeButton
+          onClick={handleCopeButtonClick}
+          buttonText={recentData.is_live ? "Yipee!" : "Cope"}
+          buttonImgUrl="https://files.pinapelz.com/rguk27.gif"
+          imgWidth="250px"
+          imgHeight="250px"
+        />
       </div>
 
-      <h2 className="text-center text-lg">
-        {copeButtonClickCount} times
-      </h2>
-    <Navbar />
-    <Footer message={"Not affiliated with " + (recentData.affiliation ? recentData.affiliation : recentData.channel_name)} />
+      <h2 className="text-center text-lg">{copeButtonClickCount} times</h2>
+      <Navbar />
+      <Footer
+        message={
+          "Not affiliated with " +
+          (recentData.affiliation
+            ? recentData.affiliation
+            : recentData.channel_name)
+        }
+      />
     </>
   );
 
