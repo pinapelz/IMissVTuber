@@ -11,7 +11,6 @@ export async function GET() {
   const videos = await client.getVideosByChannelId(process.env.CHANNEL_ID || "UCupmjRr7kPgzXKh-cPxxGbg", undefined, { limit: 7 } as ChannelVideosParam);
   // First check to see if there is a video with status live
   // If not return the first video that has status past
-  console.log(videos);
 
   for (let i = 0; i < videos.length; i++) {
     if (videos[i].status === "live") {

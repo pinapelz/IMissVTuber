@@ -16,4 +16,4 @@ The template gets you started with...
 3. Configure the site images and additional data in `public/site-config.json`
 
 
-![](https://github.com/pinapelz/pinapelz/assets/21994085/cc0f1230-76a4-416c-8aa7-eb88172679b4)
+![Screenshot of IMissErinya site](https://github.com/pinapelz/IMissVTuber/assets/21994085/b7893035-9b16-452f-9e2b-48a7627899ae)
