@@ -10,7 +10,12 @@ export default function SchedulePage() {
 
   useEffect(() => {
     const getUpcomingVideoData = async () => {
-      const response = await fetch("/api/upcoming", {});
+      const response = await fetch("/api/upcoming", {
+        headers: {
+          'Cache-Control': 'no-cache',
+        },
+        cache: 'no-cache',
+      });
       if (!response.ok) {
         console.log(response.statusText);
       }
