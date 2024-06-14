@@ -64,7 +64,11 @@ export default function Home() {
   useEffect(() => {
     (async () => {
       try {
-        const response = await fetch("/api/recent");
+        const response = await fetch("/api/recent", {
+          headers: {
+            "Cache-Control": "no-store",
+          },
+        });
         const data = await response.json();
         setRecentData(data);
       } catch (error) {
