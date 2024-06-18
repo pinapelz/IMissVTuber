@@ -50,12 +50,11 @@ export default function Home() {
 
   const [channelInfoData, setChannelInfoData] = useState<ChannelInfo>({
     name: "VTuber",
-    english_name: "VTuber", 
+    english_name: "VTuber",
     organization: "Independent",
     pfp_url: "",
     twitter_name: "",
-    banner_url: ""
-
+    banner_url: "",
   } as ChannelInfo);
 
   useEffect(() => {
@@ -71,7 +70,6 @@ export default function Home() {
       }
     })();
   }, []);
-
 
   useEffect(() => {
     (async () => {
@@ -129,6 +127,7 @@ export default function Home() {
 
   return (
     <>
+
       <h1 className="text-center font-bold text-7xl my-8 transition-colors duration-1000 ease-in-out hover:text-accent">
         I Miss {recentData.channel_name}
       </h1>
@@ -147,7 +146,6 @@ export default function Home() {
             height="315"
             src={`https://www.youtube.com/embed/${recentData.video_id}`}
           ></iframe>
-          a
         </div>
       ) : (
         <>
@@ -241,11 +239,11 @@ export default function Home() {
   }
 
   interface ChannelInfo {
-    name: string,
-    english_name: string,
-    organization: string,
-    pfp_url: string,
-    twitter_name: string,
-    banner_url: string
+    name: string;
+    english_name: string;
+    organization: string;
+    pfp_url: string;
+    twitter_name: string;
+    banner_url: string;
   }
 }
