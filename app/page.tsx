@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import Navbar from "@/components/Navbar";
 import CopeButton from "@/components/CopeButton";
 import Footer from "@/components/Footer";
+import ChannelCard from "@/components/ChannelCard";
 
 export default function Home() {
   const [selectedItem, setSelectedItem] = useState(0);
@@ -47,6 +48,16 @@ export default function Home() {
     video_id: "stub",
   } as VideoData);
 
+  const [channelInfoData, setChannelInfoData] = useState<ChannelInfo>({
+    name: "VTuber",
+    english_name: "VTuber", 
+    organization: "Independent",
+    pfp_url: "",
+    twitter_name: "",
+    banner_url: ""
+
+  } as ChannelInfo);
+
   useEffect(() => {
     (async () => {
       try {
@@ -61,6 +72,7 @@ export default function Home() {
     })();
   }, []);
 
+
   useEffect(() => {
     (async () => {
       try {
@@ -73,6 +85,22 @@ export default function Home() {
         setRecentData(data);
       } catch (error) {
         console.error("Error loading recent data:", error);
+      }
+    })();
+  }, []);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const response = await fetch("/api/info", {
+          headers: {
+            "Cache-Control": "no-store",
+          },
+        });
+        const data = await response.json();
+        setChannelInfoData(data);
+      } catch (error) {
+        console.error("Error loading channel info data:", error);
       }
     })();
   }, []);
@@ -183,6 +211,13 @@ export default function Home() {
 
       <h2 className="text-center text-lg">{copeButtonClickCount} times</h2>
       <Navbar />
+      <ChannelCard
+        name={channelInfoData.name}
+        profilePicture={channelInfoData.pfp_url}
+        organization={channelInfoData.organization}
+        twitterName={channelInfoData.twitter_name}
+        channel_id={recentData.channel_id}
+      />
       <Footer
         message={
           "Not affiliated with " +
@@ -203,5 +238,14 @@ export default function Home() {
     video_id: string;
     time_started?: string;
     time_ended?: string;
+  }
+
+  interface ChannelInfo {
+    name: string,
+    english_name: string,
+    organization: string,
+    pfp_url: string,
+    twitter_name: string,
+    banner_url: string
   }
 }
