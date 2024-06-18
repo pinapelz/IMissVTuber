@@ -4,6 +4,7 @@ import remarkGfm from "remark-gfm";
 import Markdown from "react-markdown";
 import { useSearchParams } from "next/navigation";
 import Navbar from "../../components/Navbar";
+import '../../styles/Timestamps.css';
 
 function MarkdownDocument() {
   const searchParams = useSearchParams();
