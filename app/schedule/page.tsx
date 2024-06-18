@@ -12,9 +12,9 @@ export default function SchedulePage() {
     const getUpcomingVideoData = async () => {
       const response = await fetch("/api/upcoming", {
         headers: {
-          'Cache-Control': 'no-cache',
+          "Cache-Control": "no-cache",
         },
-        cache: 'no-cache',
+        cache: "no-cache",
       });
       if (!response.ok) {
         console.log(response.statusText);
@@ -77,7 +77,23 @@ export default function SchedulePage() {
         )}
       </div>
       <div className="mt-4 text-lg">
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "100vh",
+          }}
+        >
+          <iframe
+            loading="lazy"
+            width="100%"
+            height="100%"
+            src="https://syndication.twitter.com/srv/timeline-profile/screen-name/ErinaMakina?frame=false&hideBorder=false&hideFooter=false&hideHeader=false&hideScrollBar=false&maxHeight=800px&showHeader=true&showReplies=false&transparent=false&theme=light&width=650px"
+          ></iframe>
+        </div>
         <p>{Intl.DateTimeFormat().resolvedOptions().timeZone}</p>
+
         <Navbar />
       </div>
     </div>
