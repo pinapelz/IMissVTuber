@@ -75,9 +75,7 @@ export default function Home() {
     (async () => {
       try {
         const response = await fetch("/api/recent", {
-          headers: {
-            "Cache-Control": "no-store",
-          },
+          cache: 'no-store'
         });
         const data = await response.json();
         setRecentData(data);
