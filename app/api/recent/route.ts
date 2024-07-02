@@ -1,11 +1,13 @@
 import { NextResponse } from "next/server";
 import { HolodexApiClient, ChannelVideosParam } from 'holodex.js';
 
+export const fetchCache = 'force-no-store';
+export const revalidate = 0
+
 export async function GET() {
   const client = new HolodexApiClient({
     apiKey: process.env.HOLODEX_API_KEY || "",
   });
-  
   const videos = await client.getVideosByChannelId(process.env.CHANNEL_ID || "UCupmjRr7kPgzXKh-cPxxGbg", undefined, { limit: 7 } as ChannelVideosParam);
 
   // First check to see if there is a video with status live
