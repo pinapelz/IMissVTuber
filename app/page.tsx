@@ -13,6 +13,7 @@ import Navbar from "@/components/Navbar";
 import CopeButton from "@/components/CopeButton";
 import Footer from "@/components/Footer";
 import ChannelCard from "@/components/ChannelCard";
+import VideoRow, { VideoRowProps } from '@/components/VideoRow';
 
 export default function Home() {
   const [selectedItem, setSelectedItem] = useState(0);
@@ -57,6 +58,12 @@ export default function Home() {
     banner_url: "",
   } as ChannelInfo);
 
+  const [pastVideoData, setPastVideoData] = useState<VideoRowProps>({
+    past_videos: [{
+    }]} as VideoRowProps
+  );
+
+
   useEffect(() => {
     (async () => {
       try {
@@ -69,9 +76,7 @@ export default function Home() {
         console.error("Error loading past images:", error);
       }
     })();
-  }, []);
 
-  useEffect(() => {
     (async () => {
       try {
         const response = await fetch("/api/recent", {
@@ -83,9 +88,7 @@ export default function Home() {
         console.error("Error loading recent data:", error);
       }
     })();
-  }, []);
 
-  useEffect(() => {
     (async () => {
       try {
         const response = await fetch("/api/info", {
@@ -99,7 +102,24 @@ export default function Home() {
         console.error("Error loading channel info data:", error);
       }
     })();
+
+    (async () => {
+      try {
+        const response = await fetch("/api/past", {
+          headers: {
+            "Cache-Control": "no-store",
+          },
+        });
+        const data = await response.json();
+        console.log(data);
+        setPastVideoData(data);
+      } catch (error) {
+        console.error("Error loading channel past data:", error);
+      }
+    })();
+
   }, []);
+
 
   useEffect(() => {
     // Logic for updating the time since the last activity
@@ -125,7 +145,6 @@ export default function Home() {
 
   return (
     <>
-
       <h1 className="text-center font-bold text-7xl my-8 transition-colors duration-1000 ease-in-out hover:text-accent">
         I Miss {recentData.channel_name}
       </h1>
@@ -214,6 +233,9 @@ export default function Home() {
         twitterName={channelInfoData.twitter_name}
         channel_id={recentData.channel_id}
       />
+      <div className="p-4">
+        <VideoRow past_videos={pastVideoData.past_videos} />
+      </div>
       <Footer
         message={
           "Not affiliated with " +
